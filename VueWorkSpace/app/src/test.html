@@ -1,0 +1,24 @@
+<script src="https://unpkg.com/vue@3"></script>
+
+<div id="app">{{ message }}
+  <a href="https://cn.bing.com/" @click.prevent="show">点我提示信息</a>
+  <button @click="show"></button>
+</div>
+
+<script>
+  const { createApp } = Vue
+
+  createApp({
+    data() {
+      return {
+        message: 'Hello Vue!'
+      }
+    },
+    methods:{
+      show(e){
+
+        alert('Info')
+      }
+    }
+  }).mount('#app')
+</script>
