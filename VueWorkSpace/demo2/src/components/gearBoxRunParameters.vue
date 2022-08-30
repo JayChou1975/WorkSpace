@@ -59,11 +59,15 @@ export default {
       inputTempArr: [],   //齿轮箱油进口油温，B00771
       frontTempArr: [],   //齿轮箱高速轴后端温度，B00721
       endTempArr: [],     //齿轮箱高速轴后端温度，B00731
-      dateArr: [],
       avePow: [],         //60s平均有功功率，A00211
       aveSpe: [],          //60s平均风速，B01122
       inputPre: [],        //齿轮箱进口压力，B00782
       pumpPre: [],         //齿轮箱油泵出口压力,B00792
+
+      maxVal: [],           //上述8个指标的最大值
+      maxValTime: [],      //八个指标的最大值对应的出现时间
+
+      dateArr: [],
       tableData: [
         {
           maxValueTime: '值',
@@ -115,80 +119,67 @@ export default {
         this.inputPre.push(item.B00782)     //齿轮箱进口压力
         this.pumpPre.push(item.B00792)      //齿轮箱油泵出口压力
         this.dateArr.push(item.TIME)        //获取日期
+
+
+        if (1 == index) {
+          this.maxVal.push(item.B00761)
+          this.maxVal.push(item.B00771)
+          this.maxVal.push(item.B00721)
+          this.maxVal.push(item.B00731)
+          this.maxVal.push(item.A00211)
+          this.maxVal.push(item.B01122)
+          this.maxVal.push(item.B00782)
+          this.maxVal.push(item.B00792)
+
+          this.maxValTime.push(item.TIME)
+          this.maxValTime.push(item.TIME)
+          this.maxValTime.push(item.TIME)
+          this.maxValTime.push(item.TIME)
+          this.maxValTime.push(item.TIME)
+          this.maxValTime.push(item.TIME)
+          this.maxValTime.push(item.TIME)
+          this.maxValTime.push(item.TIME)
+
+        }
+        else {
+          if (item.B00761 > this.maxVal[0]) {
+            this.maxVal[0] = item.B00761
+            this.maxValTime[0] = item.TIME
+          }
+          if (item.B00771 > this.maxVal[1]) {
+            this.maxVal[1] = item.B00771
+            this.maxValTime[1] = item.TIME
+          }
+          if (item.B00721 > this.maxVal[2]) {
+            this.maxVal[2] = item.B00721
+            this.maxValTime[2] = item.TIME
+          }
+          if (item.B00731 > this.maxVal[3]) {
+            this.maxVal[3] = item.B00731
+            this.maxValTime[3] = item.TIME
+          }
+          if (item.A00211 > this.maxVal[4]) {
+            this.maxVal[4] = item.A00211
+            this.maxValTime[4] = item.TIME
+          }
+          if (item.B01122 > this.maxVal[5]) {
+            this.maxVal[5] = item.B01122
+            this.maxValTime[5] = item.TIME
+          }
+          if (item.B00782 > this.maxVal[6]) {
+            this.maxVal[6] = item.B00782
+            this.maxValTime[6] = item.TIME
+          }
+          if (item.B00792 > this.maxVal[[7]]) {
+            this.maxVal[7] = item.B00792
+            this.maxValTime[7] = item.TIME
+          }
+        }
+
+
+
       })
 
-
-    /*
-      // //获取齿轮箱油池温度
-      // var urlCopy = url + "B00761"
-      // console.log(urlCopy)
-      // const res1 = await axios.get(urlCopy)
-      // const data1 = res1.data.data
-      // res1.data.data.sort((a, b) => {
-      //   return Number(a.TIME.split(" ")[0].split("-").join("") + a.TIME.split(" ")[1].split(":").join("")) - Number(b.TIME.split(" ")[0].split("-").join("") + b.TIME.split(" ")[1].split(":").join(""))
-      // })
-      // data1.map((item, index) => {
-      //   this.oilTempArr.push(item.B00761)
-      // })
-
-      //   //获取齿轮箱进口油温
-      // urlCopy = url + "B00771"
-      // console.log(urlCopy)
-      // const res2 = await axios.get(urlCopy)
-      // res2.data.data.sort((a, b) => {
-      //   return Number(a.TIME.split(" ")[0].split("-").join("") + a.TIME.split(" ")[1].split(":").join("")) - Number(b.TIME.split(" ")[0].split("-").join("") + b.TIME.split(" ")[1].split(":").join(""))
-      // })
-      // const data2 = res2.data.data
-      // data2.map((item, index) => {
-      //   this.inputTempArr.push(item.B00771)
-      // })
-
-      //   //获取齿轮箱高速轴前端温度
-      // urlCopy = url + "B00721"
-      // console.log(urlCopy)
-      // const res3 = await axios.get(urlCopy)
-      // res3.data.data.sort((a, b) => {
-      //   return Number(a.TIME.split(" ")[0].split("-").join("") + a.TIME.split(" ")[1].split(":").join("")) - Number(b.TIME.split(" ")[0].split("-").join("") + b.TIME.split(" ")[1].split(":").join(""))
-      // })
-      // const data3 = res3.data.data
-      // data3.map((item, index) => {
-      //   this.frontTempArr.push(item.B00721)
-      // })
-
-      // //获取齿轮箱高速轴后端端温度
-      // urlCopy = url + "B00731"
-      // console.log(urlCopy)
-      // const res4 = await axios.get(urlCopy)
-      // res4.data.data.sort((a, b) => {
-      //   return Number(a.TIME.split(" ")[0].split("-").join("") + a.TIME.split(" ")[1].split(":").join("")) - Number(b.TIME.split(" ")[0].split("-").join("") + b.TIME.split(" ")[1].split(":").join(""))
-      // })
-      // const data4 = res4.data.data
-      // data4.map((item, index) => {
-      //   this.endTempArr.push(item.B00731)
-      // })
-
-      // // console.log(res4)
-
-      //  this.dateArr.push(item.TIME) //获取日期
-      // data4.map((item, index) => {
-      //   // console.log(item.B00761)
-      //   var date = item.TIME
-      //   this.dateArr.push(item.TIME)
-      // })
-
-      //   urlCopy = url + "A00211"
-      // console.log(urlCopy)
-      // const res5 = await axios.get(urlCopy)
-      // res5.data.data.sort((a, b) => {
-      //   return Number(a.TIME.split(" ")[0].split("-").join("") + a.TIME.split(" ")[1].split(":").join("")) - Number(b.TIME.split(" ")[0].split("-").join("") + b.TIME.split(" ")[1].split(":").join(""))
-      // })
-      // const data5 = res5.data.data
-      // data5.map((item, index) => {
-      //   this.avePow.push(item.A00211)
-      // })
-
-      // console.log(this.avePow)
-*/
       this.initCharts(loadingInstance)
     },
 
@@ -460,7 +451,7 @@ export default {
               }
             },
           },
-          
+
 
         ]
       };
@@ -484,9 +475,9 @@ export default {
         },
 
         legend: {               //设置区分（哪条线属于什么）
-          data: ['齿轮箱进口压力','齿轮箱油泵出口压力']
+          data: ['齿轮箱进口压力', '齿轮箱油泵出口压力']
         },
-        color: ['#3399ff','#ff9933'],       //设置区分（每条线是什么颜色，和 legend 一一对应）
+        color: ['#3399ff', '#ff9933'],       //设置区分（每条线是什么颜色，和 legend 一一对应）
         toolbox: {
           feature: {
             saveAsImage: {}
@@ -557,6 +548,8 @@ export default {
       };
       this.chartLine.setOption(option);
 
+      console.log(this.maxVal)
+      console.log("\n" + this.maxValTime)
       loadingInstance.close();
     }
   },
