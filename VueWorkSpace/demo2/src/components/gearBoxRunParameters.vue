@@ -451,7 +451,7 @@ export default {
         },
         series: [
           {
-            name: '60s风速',
+            name: '60s平均风速',
             data: this.aveSpe,
             type: 'line',               // 类型为折线图
             lineStyle: {                // 线条样式 => 必须使用normal属性
