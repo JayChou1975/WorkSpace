@@ -99,7 +99,7 @@ export default {
 
     async dataGet(url) {
       let loadingInstance = Loading.service({ fullscreen: true });
-      var url = "http://192.168.190.147:15000/hzfd-phm/scada-history/offline/20220701000000/20220801000000/CfAA/";
+      var url = "http://192.168.190.147:15000/hzfd-phm/scada-history/offline/20220701000000/20220702000000/CfAA/";
 
       //  B00761,B00771,B00721,B00731,A00211
 
@@ -179,6 +179,21 @@ export default {
 
 
       })
+
+      this.tableData[0].oilTemp=this.maxVal[0].toString()
+      this.tableData[0].inputTemp=this.maxVal[1].toString()
+      this.tableData[0].frontTemp=this.maxVal[2].toString()
+      this.tableData[0].backTemp=this.maxVal[3].toString()
+      this.tableData[0].inputPressure=this.maxVal[4].toString()
+      this.tableData[0].pumpPressure=this.maxVal[5].toString()
+
+      this.tableData[1].oilTemp=this.maxValTime[0].toString()
+      this.tableData[1].inputTemp=this.maxValTime[1].toString()
+      this.tableData[1].frontTemp=this.maxValTime[2].toString()
+      this.tableData[1].backTemp=this.maxValTime[3].toString()
+      this.tableData[1].inputPressure=this.maxValTime[4].toString()
+      this.tableData[1].pumpPressure=this.maxValTime[5].toString()
+
 
       this.initCharts(loadingInstance)
     },
