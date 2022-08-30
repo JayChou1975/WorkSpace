@@ -28,14 +28,17 @@
     </template>
 
     <el-divider></el-divider>
-    <!-- echarts -->
     <div id="chartLineBox" style="width: 90%;height: 70vh;"> </div>
 
 
     <el-divider></el-divider>
-    <!-- echarts -->
     <div id="chartLineBox2" style="width: 90%;height: 70vh;"> </div>
 
+    <el-divider></el-divider>
+    <div id="chartLineBox3" style="width: 90%;height: 70vh;"> </div>
+
+    <el-divider></el-divider>
+    <div id="chartLineBox4" style="width: 90%;height: 70vh;"> </div>
 
   </div>
 </template>
@@ -320,7 +323,7 @@ export default {
         legend: {               //设置区分（哪条线属于什么）
           data: ['60s平均有功功率']
         },
-        color: ['#0066cc'],       //设置区分（每条线是什么颜色，和 legend 一一对应）
+        color: ['#3399ff'],       //设置区分（每条线是什么颜色，和 legend 一一对应）
         toolbox: {
           feature: {
             saveAsImage: {}
@@ -372,7 +375,7 @@ export default {
             type: 'line',               // 类型为折线图
             lineStyle: {                // 线条样式 => 必须使用normal属性
               normal: {
-                color: '#0066cc',
+                color: '#3399ff',
               }
             },
           }
@@ -382,10 +385,177 @@ export default {
       this.chartLine.setOption(option);
 
       //表3 60s平均风速
+      this.chartLine = echarts.init(document.getElementById('chartLineBox3'));
+      option = {
+        dataZoom: [
+          {
+            id: 'dataZoomX',
+            type: 'slider',
+            xAxisIndex: [0],
+            filterMode: 'filter',
+            start: 40,
+            end: 45
+          }
+        ],
+        tooltip: {              //设置tip提示
+          trigger: 'axis'
+        },
 
+        legend: {               //设置区分（哪条线属于什么）
+          data: ['60s平均风速']
+        },
+        color: ['#3399ff'],       //设置区分（每条线是什么颜色，和 legend 一一对应）
+        toolbox: {
+          feature: {
+            saveAsImage: {}
+          }
+        },
+        xAxis: {                //设置x轴
+          type: 'category',
+          boundaryGap: false,     //坐标轴两边不留白
+
+          data: this.dateArr,
+          name: '时间',           //X轴 name
+          nameTextStyle: {        //坐标轴名称的文字样式
+            color: '#FA6F53',
+            fontSize: 16,
+            padding: [0, 0, 0, 20]
+          },
+          axisLine: {             //坐标轴轴线相关设置。
+            lineStyle: {
+              color: '#FA6F53',
+            }
+          }
+        },
+        yAxis: {
+          name: '60s平均风速(m/s)',
+          min: function (value) {//取最小值向下取整为最小刻度
+            return Math.floor(value.min)
+          },
+          max: function (value) {//取最大值向上取整为最大刻度
+            return Math.ceil(value.max)
+          },
+
+          nameTextStyle: {
+            color: '#FA6F53',
+            fontSize: 16,
+            padding: [0, 0, 10, 0]
+          },
+          axisLine: {
+            lineStyle: {
+              color: '#FA6F53',
+            }
+          },
+          type: 'value',
+          scale: true
+        },
+        series: [
+          {
+            name: '60s风速',
+            data: this.aveSpe,
+            type: 'line',               // 类型为折线图
+            lineStyle: {                // 线条样式 => 必须使用normal属性
+              normal: {
+                color: '#3399ff',
+              }
+            },
+          },
+          
+
+        ]
+      };
+      this.chartLine.setOption(option);
 
       //表4 齿轮箱进口压力&齿轮箱油泵出口压力
+      this.chartLine = echarts.init(document.getElementById('chartLineBox4'));
+      option = {
+        dataZoom: [
+          {
+            id: 'dataZoomX',
+            type: 'slider',
+            xAxisIndex: [0],
+            filterMode: 'filter',
+            start: 40,
+            end: 45
+          }
+        ],
+        tooltip: {              //设置tip提示
+          trigger: 'axis'
+        },
 
+        legend: {               //设置区分（哪条线属于什么）
+          data: ['齿轮箱进口压力','齿轮箱油泵出口压力']
+        },
+        color: ['#3399ff','#ff9933'],       //设置区分（每条线是什么颜色，和 legend 一一对应）
+        toolbox: {
+          feature: {
+            saveAsImage: {}
+          }
+        },
+        xAxis: {                //设置x轴
+          type: 'category',
+          boundaryGap: false,     //坐标轴两边不留白
+
+          data: this.dateArr,
+          name: '时间',           //X轴 name
+          nameTextStyle: {        //坐标轴名称的文字样式
+            color: '#FA6F53',
+            fontSize: 16,
+            padding: [0, 0, 0, 20]
+          },
+          axisLine: {             //坐标轴轴线相关设置。
+            lineStyle: {
+              color: '#FA6F53',
+            }
+          }
+        },
+        yAxis: {
+          name: '压力(bar)',
+          min: function (value) {//取最小值向下取整为最小刻度
+            return Math.floor(value.min)
+          },
+          max: function (value) {//取最大值向上取整为最大刻度
+            return Math.ceil(value.max)
+          },
+
+          nameTextStyle: {
+            color: '#FA6F53',
+            fontSize: 16,
+            padding: [0, 0, 10, 0]
+          },
+          axisLine: {
+            lineStyle: {
+              color: '#FA6F53',
+            }
+          },
+          type: 'value',
+          scale: true
+        },
+        series: [
+          {
+            name: '齿轮箱进口压力',
+            data: this.inputPre,
+            type: 'line',               // 类型为折线图
+            lineStyle: {                // 线条样式 => 必须使用normal属性
+              normal: {
+                color: '#3399ff',
+              }
+            },
+          },
+          {
+            name: '齿轮箱油泵出口压力',
+            data: this.pumpPre,
+            type: 'line',               // 类型为折线图
+            lineStyle: {                // 线条样式 => 必须使用normal属性
+              normal: {
+                color: '#ff9933',
+              }
+            },
+          },
+
+        ]
+      };
+      this.chartLine.setOption(option);
 
       loadingInstance.close();
     }
