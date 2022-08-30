@@ -7,8 +7,11 @@ import 'element-ui/lib/theme-chalk/index.css'; //引入ui插件样式
 import util from './common/util'; //导入公用函数
 import config from './common/config'; //导入设置
 import '@/assets/fonts/iconfont.css'; //字体样式
+
+
 import  * as Echarts from 'echarts'
 import Bus from  './eventbus/eventBus'
+
 import mainComponentsParameters from './components/mainComponentsParameters.vue'
 import gearBoxRunParameters from './components/gearBoxRunParameters.vue'
 // main.js
