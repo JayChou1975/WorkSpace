@@ -27,19 +27,20 @@
       </el-table>
     </template>
 
-    <el-divider></el-divider>
-    <div id="chartLineBox" style="width: 90%;height: 70vh;"> </div>
+    <template>
+      <el-divider></el-divider>
+      <div id="chartLineBox" style="width: 90%;height: 70vh;"> </div>
 
 
-    <el-divider></el-divider>
-    <div id="chartLineBox2" style="width: 90%;height: 70vh;"> </div>
+      <el-divider></el-divider>
+      <div id="chartLineBox2" style="width: 90%;height: 70vh;"> </div>
 
-    <el-divider></el-divider>
-    <div id="chartLineBox3" style="width: 90%;height: 70vh;"> </div>
+      <el-divider></el-divider>
+      <div id="chartLineBox3" style="width: 90%;height: 70vh;"> </div>
 
-    <el-divider></el-divider>
-    <div id="chartLineBox4" style="width: 90%;height: 70vh;"> </div>
-
+      <el-divider></el-divider>
+      <div id="chartLineBox4" style="width: 90%;height: 70vh;"> </div>
+    </template>
   </div>
 </template>
 
@@ -48,6 +49,8 @@
 import axios from 'axios'
 import { number } from 'echarts'
 import { Loading } from 'element-ui';
+import localData from './data.json'
+
 export default {
   name: 'gearBoxRunParameters',
   components: {
@@ -55,6 +58,7 @@ export default {
   },
   data() {
     return {
+
       oilTempArr: [],     //齿轮箱油池温度，B00761
       inputTempArr: [],   //齿轮箱油进口油温，B00771
       frontTempArr: [],   //齿轮箱高速轴后端温度，B00721
@@ -93,7 +97,8 @@ export default {
 
   },
   mounted() {
-    this.dataGet()
+    // this.dataGet()
+    this.getJsonFile()
   },
   methods: {
 
@@ -104,11 +109,15 @@ export default {
       //  B00761,B00771,B00721,B00731,A00211
 
       var urlCopy = url + "B00761,B00771,B00721,B00731,A00211,B01122,B00782,B00792"
+
+
+
       const res1 = await axios.get(urlCopy)
       const data1 = res1.data.data
       res1.data.data.sort((a, b) => {
         return Number(a.TIME.split(" ")[0].split("-").join("") + a.TIME.split(" ")[1].split(":").join("")) - Number(b.TIME.split(" ")[0].split("-").join("") + b.TIME.split(" ")[1].split(":").join(""))
       })
+
       data1.map((item, index) => {
         this.oilTempArr.push(item.B00761)   //齿轮箱进口油温
         this.inputTempArr.push(item.B00771) //齿轮箱进口油温
@@ -180,24 +189,23 @@ export default {
 
       })
 
-      this.tableData[0].oilTemp=this.maxVal[0].toString()
-      this.tableData[0].inputTemp=this.maxVal[1].toString()
-      this.tableData[0].frontTemp=this.maxVal[2].toString()
-      this.tableData[0].backTemp=this.maxVal[3].toString()
-      this.tableData[0].inputPressure=this.maxVal[4].toString()
-      this.tableData[0].pumpPressure=this.maxVal[5].toString()
+      this.tableData[0].oilTemp = this.maxVal[0].toString()
+      this.tableData[0].inputTemp = this.maxVal[1].toString()
+      this.tableData[0].frontTemp = this.maxVal[2].toString()
+      this.tableData[0].backTemp = this.maxVal[3].toString()
+      this.tableData[0].inputPressure = this.maxVal[4].toString()
+      this.tableData[0].pumpPressure = this.maxVal[5].toString()
 
-      this.tableData[1].oilTemp=this.maxValTime[0].toString()
-      this.tableData[1].inputTemp=this.maxValTime[1].toString()
-      this.tableData[1].frontTemp=this.maxValTime[2].toString()
-      this.tableData[1].backTemp=this.maxValTime[3].toString()
-      this.tableData[1].inputPressure=this.maxValTime[4].toString()
-      this.tableData[1].pumpPressure=this.maxValTime[5].toString()
+      this.tableData[1].oilTemp = this.maxValTime[0].toString()
+      this.tableData[1].inputTemp = this.maxValTime[1].toString()
+      this.tableData[1].frontTemp = this.maxValTime[2].toString()
+      this.tableData[1].backTemp = this.maxValTime[3].toString()
+      this.tableData[1].inputPressure = this.maxValTime[4].toString()
+      this.tableData[1].pumpPressure = this.maxValTime[5].toString()
 
 
       this.initCharts(loadingInstance)
     },
-
 
     initCharts(loadingInstance) {
 
@@ -566,7 +574,19 @@ export default {
       console.log(this.maxVal)
       console.log("\n" + this.maxValTime)
       loadingInstance.close();
-    }
+    },
+    
+    getJsonFile() {
+      let localJsonPath='./data.json'
+
+      var currentJsonFile = require(`${localJsonPath}`)
+      console.log(typeof currentJsonFile)
+      console.log(Object.keys(currentJsonFile).length)
+
+      console.log(currentJsonFile)
+    },
+
+   
   },
   watch: {
 

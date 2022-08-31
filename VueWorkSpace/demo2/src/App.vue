@@ -6,10 +6,11 @@
 
 <script>
 import wfOverview from "@/views/wfOverview";
-
+import localData from "./components/data.json"
 export default {
   components: {
-    wfOverview
+    wfOverview,
+    localData
   },
   data() {
     return {
