@@ -97,14 +97,14 @@ export default {
 
   },
   mounted() {
-    // this.dataGet()
-    this.getJsonFile()
+    this.dataGet()
+    //this.getJsonFile()
   },
   methods: {
 
     async dataGet(url) {
       let loadingInstance = Loading.service({ fullscreen: true });
-      var url = "http://192.168.190.147:15000/hzfd-phm/scada-history/offline/20220701000000/20220702000000/CfAA/";
+      var url = "http://192.168.190.147:15000/hzfd-phm/scada-history/offline/20210701000000/20210702000000/CfAA/";
 
       //  B00761,B00771,B00721,B00731,A00211
 
@@ -118,16 +118,22 @@ export default {
         return Number(a.TIME.split(" ")[0].split("-").join("") + a.TIME.split(" ")[1].split(":").join("")) - Number(b.TIME.split(" ")[0].split("-").join("") + b.TIME.split(" ")[1].split(":").join(""))
       })
 
+
       data1.map((item, index) => {
-        this.oilTempArr.push(item.B00761)   //齿轮箱进口油温
-        this.inputTempArr.push(item.B00771) //齿轮箱进口油温
-        this.frontTempArr.push(item.B00721) //齿轮箱高速轴前端温度
-        this.endTempArr.push(item.B00731)    //齿轮箱高速轴后端温度
-        this.avePow.push(item.A00211)       //60s平均有功功率
-        this.aveSpe.push(item.B01122)       //60s平均风速
-        this.inputPre.push(item.B00782)     //齿轮箱进口压力
-        this.pumpPre.push(item.B00792)      //齿轮箱油泵出口压力
-        this.dateArr.push(item.TIME)        //获取日期
+        var count = 0
+
+        if (index % 10 == 0) {
+          this.oilTempArr.push(item.B00761)   //齿轮箱油池温度
+          this.inputTempArr.push(item.B00771) //齿轮箱进口油温
+          this.frontTempArr.push(item.B00721) //齿轮箱高速轴前端温度
+          this.endTempArr.push(item.B00731)    //齿轮箱高速轴后端温度
+          this.avePow.push(item.A00211)       //60s平均有功功率
+          this.aveSpe.push(item.B01122)       //60s平均风速
+          this.inputPre.push(item.B00782)     //齿轮箱进口压力
+          this.pumpPre.push(item.B00792)      //齿轮箱油泵出口压力
+          this.dateArr.push(item.TIME)        //获取日期
+        }
+
 
 
         if (1 == index) {
@@ -204,6 +210,7 @@ export default {
       this.tableData[1].pumpPressure = this.maxValTime[5].toString()
 
 
+      console.log(Object.keys(this.dateArr).length)
       this.initCharts(loadingInstance)
     },
 
@@ -575,9 +582,9 @@ export default {
       console.log("\n" + this.maxValTime)
       loadingInstance.close();
     },
-    
+
     getJsonFile() {
-      let localJsonPath='./data.json'
+      let localJsonPath = './data.json'
 
       var currentJsonFile = require(`${localJsonPath}`)
       console.log(typeof currentJsonFile)
@@ -586,7 +593,7 @@ export default {
       console.log(currentJsonFile)
     },
 
-   
+
   },
   watch: {
 

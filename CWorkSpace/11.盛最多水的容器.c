@@ -6,50 +6,39 @@
 
 // @lc code=start
 
-
-int maxArea(int* height, int heightSize)
+int maxArea(int *height, int heightSize)
 {
-    if(2==heightSize)
-        return height[0]<height[1]?height[0]:height[1];
-
-    int i,j,max;
-    i=0;
-    j=heightSize-1;
-    max=0;
-    for(i,j;i<j;)
+    int max, min;
+    if (2 == heightSize)
     {
-        if(height[i+1] <=height[i] && height[j-1] < height[j] && i<j)
-            i++;
-        else if(height[i+1] >height[i] && height[j-1] < height[j] && i<j)
+        min = height[0] < height[1] ? height[0] : height[1];
+        max = min;
+    }
+    else
+    {
+        int i = 0;
+        int j = heightSize - 1;
+        min = height[i] < height[j] ? height[i] : height[j];
+        max = min * (heightSize - 1);
+        for (i; i < j;)
         {
-            int m=(j-i)*(height[i+1]<height[j]?height[i+1]:height[j]) < (j-i+1)*(height[i]<height[j]?height[i]:height[j]) ? (j-i)*(height[i+1]<height[j]?height[i+1]:height[j]) : (j-i+1)*(height[i]<height[j]?height[i]:height[j]);
-            max=max>m?max:m;
-            i++;
-        }
-        else if(height[i+1] <=height[i] && height[j-1] > height[j] && i<j)
-        {
-            int m=(j-i)*(height[i-1]<height[i]?height[j-1]:height[i]) < (j-i+1)*(height[i]<height[j]?height[i]:height[j]) ? (j-i)*(height[i-1]<height[i]?height[j-1]:height[i]) : (j-i+1)*(height[i]<height[j]?height[i]:height[j]);
-            max=max>m?max:m;
-            j--;
-        }
-        else if(height[i+1] >height[i] && height[j-1] > height[j] && i<j)
-        {
-            int m1=(j-i)*(height[i+1]<height[j]?height[i+1]:height[j]) < (j-i+1)*(height[i]<height[j]?height[i]:height[j]) ? (j-i)*(height[i+1]<height[j]?height[i+1]:height[j]) : (j-i+1)*(height[i]<height[j]?height[i]:height[j]);
-            int m2=(j-i)*(height[i-1]<height[i]?height[j-1]:height[i]) < (j-i+1)*(height[i]<height[j]?height[i]:height[j]) ? (j-i)*(height[i-1]<height[i]?height[j-1]:height[i]) : (j-i+1)*(height[i]<height[j]?height[i]:height[j]);
-            if(m1>m2)
-            {
+            while (height[i + 1] < height[i] && i < j)
                 i++;
-                max=m1;
-            }
-            else
-            {
-                j--;
-                max=m2;
-            }
+            min = height[i + 1] < height[j] ? height[i + 1] : height[j];
+            max = max > (min * (j - i + 1)) ? max : (min * (j - i + 1));
         }
-        
+        i = 0;
+        j = heightSize - 1;
+        min = height[i] < height[j] ? height[i] : height[j];
+
+        for (j; i < j;)
+        {
+            while (height[j - 1] < height[j] && i < j)
+                j--;
+            min = height[j - 1] < height[i] ? height[j - 1] : height[i];
+            max = max > (min * (j - i + 1)) ? max : (min * (j - i + 1));
+        }
     }
     return max;
 }
 // @lc code=end
-
