@@ -10,6 +10,6 @@ int main()
 
  
 
-    system("pause");
+    printf("hello world!\n");
     return 0;
 }
