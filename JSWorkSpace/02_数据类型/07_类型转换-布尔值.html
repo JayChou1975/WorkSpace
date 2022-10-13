@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>类型转换-布尔值</title>
+    <script>
+        /* 
+            1. 使用 Boolean()函数将其他类型转换为布尔值
+                -对于数字，Nan、0为false，其余为true
+                ·对于字符串，空串、null和undefined转换为False,其余为true
+                -对象会转换为true
+        
+        */
+        let a =1
+        console.log(typeof a, a)
+
+        a=Boolean(a)
+        console.log(typeof a, a)
+        
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

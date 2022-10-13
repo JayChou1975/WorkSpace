@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>关系运算符</title>
+    <script>
+        /* 
+        关系运算符用于检查两个值之间的关系
+        >
+        < 
+        >=
+        <=
+        一般情况下，对非数值进行关系运算时，会发生隐式转换
+        
+        */
+       let result = 'a' < 'b' //关系运算符两端为两个字符串时
+                          //会逐位比较字符串的unicode编码
+                          //而不会把字符串转换位 Null
+
+        result ='abc' < 'b'  // 逐位比较 ，先比较 'a' 和'b' 的unicode编码
+                            // 直接返回true。只在第一位相同时才比较第二位
+                            // 可利用这一点进行字符串排序  
+
+        result = '12' <'2'  // 即使是两个字符串格式的数字，也会逐位比较
+                            //  因此在进行数字的大小比较时，一定要先转换格式
+
+        let num=60
+        result = 5<num <10  // true ，JS会先执行关系运算 5<num.结果返回true
+                            // 再将返回的布尔值执行与10进行关系运算，因此连写是
+                            // 错误的
+    </script>               
+</head>
+<body>
+    
+</body>
+</html>

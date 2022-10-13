@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>算术运算符</title>
+    <script>
+        /* 
+        运算符（(操作符)
+            ·运算符可以用来对一个或多个值进行运算
+
+            幂运算符： **  
+
+        算术运算时，除了字符串的加法，其他运算的操作数是非数值时，
+        会被转换为数值然后再运算。对任意类型的值，可将其与空串作加法，
+        将其转换为字符串
+        */
+       let a=1+1
+        a=10-'5' // 10-5
+        a=10+true //10+1
+        a=5+null // 5+0
+        a=6-undefined //6-NaN
+
+        a='Hello'+' world!' // 字符串加法, a== hello, world!
+        a=1+'2'  // 字符串加法， 结果为 a==12 ,而非 a==3
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

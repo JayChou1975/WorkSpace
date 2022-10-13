@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>类型转换-数值</title>
+    <script>
+        /* 
+        将其他数据类型转换为数值
+            1. Number()，将其他类型转换为数值，适用于任何类型
+                转换的情况：如果字符串不是合法数字，则转换为Nan
+                           如果字符串是空串或由纯空格组成，则转换成0
+                           true转换为1，false转换为0
+                           null转换为0，undefined转换为Nan
+            2. parseInt(),将一个字符串转换为一个整数
+               parseFloat(),将一个字符串转换为浮点数
+        
+        */
+       let a='123'
+       console.log(typeof a,a) //输出 string 123
+
+       a=Number(a)
+       console.log(typeof a,a)// 输出 number 123
+
+       a='asf'
+       console.log(typeof a,a)// 输出 Nan
+
+       a='123sd'
+       a=Number(a) // 输出Nan
+       a=parseInt(a) // 输出123，parseInt自左至右读取数字，并将其转换为数字
+
+    </script>
+</head>
+<body>
+    
+</body>
+</html>
